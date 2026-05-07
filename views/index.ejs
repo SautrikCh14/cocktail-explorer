@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= cocktail ? cocktail.strDrink : "Cocktail Explorer" %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+
+  <header class="site-header">
+    <a href="/" class="logo">
+      <span class="logo-icon">🍸</span>
+      <span class="logo-text">Sip<em>craft</em></span>
+    </a>
+
+
+    <form class="search-form" action="/search" method="GET">
+      <input
+        type="text"
+        name="q"
+        class="search-input"
+        placeholder="Search a cocktail..."
+        value="<%= searchQuery %>"
+        autocomplete="off"
+      />
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+
+    <nav class="category-nav">
+      <a href="/category/Cocktail" class="pill">Cocktail</a>
+      <a href="/category/Shot" class="pill">Shot</a>
+      <a href="/category/Punch%20%2F%20Party%20Drink" class="pill">Punch</a>
+      <a href="/category/Homemade%20Liqueur" class="pill">Liqueur</a>
+      <a href="/random" class="pill pill--accent">✦ Surprise Me</a>
+    </nav>
+  </header>
+
+
+  <main class="main">
+
+    <% if (error) { %>
+      <!-- Error / no-result state -->
+      <div class="empty-state">
+        <div class="empty-icon">🥃</div>
+        <p class="empty-msg"><%= error %></p>
+        <a href="/random" class="btn-random">Get a Random Drink</a>
+      </div>
+
+    <% } else if (cocktail) { %>
+
+      <article class="cocktail-card">
+
+        <!-- Left: image -->
+        <div class="card-image-wrap">
+          <img
+            class="card-image"
+            src="<%= cocktail.strDrinkThumb %>/preview"
+            alt="<%= cocktail.strDrink %>"
+            loading="lazy"
+          />
+          <!-- Floating badges -->
+          <span class="badge badge--category"><%= cocktail.strCategory %></span>
+          <% if (cocktail.strAlcoholic) { %>
+            <span class="badge badge--alcohol"><%= cocktail.strAlcoholic %></span>
+          <% } %>
+        </div>
+
+
+        <div class="card-details">
+
+          <div class="card-meta">
+            <span class="meta-glass">
+              <%= cocktail.strGlass || "Any glass" %>
+            </span>
+          </div>
+
+          <h1 class="cocktail-name"><%= cocktail.strDrink %></h1>
+
+
+          <section class="ingredients-section">
+            <h2 class="section-label">Ingredients</h2>
+            <ul class="ingredients-list">
+              <% ingredients.forEach(ing => { %>
+                <li class="ingredient-item">
+                  <span class="ing-measure"><%= ing.measure %></span>
+                  <span class="ing-name"><%= ing.name %></span>
+                </li>
+              <% }) %>
+            </ul>
+          </section>
+
+     
+          <section class="instructions-section">
+            <h2 class="section-label">How to Make It</h2>
+            <p class="instructions-text">
+              <%= cocktail.strInstructions || "No instructions provided." %>
+            </p>
+          </section>
+
+          <!-- Action buttons -->
+          <div class="card-actions">
+            <a href="/random" class="btn-primary">Another One →</a>
+          </div>
+
+        </div>
+      </article>
+
+    <% } %>
+
+  </main>
+
+ 
+  <footer class="site-footer">
+    <p>Data from <a href="https://www.thecocktaildb.com" target="_blank" rel="noopener">TheCocktailDB</a> · Built with Express &amp; Axios</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
