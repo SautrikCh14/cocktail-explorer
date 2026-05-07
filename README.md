@@ -8,7 +8,6 @@ A Node.js/Express web app that pulls cocktail recipes from the free [TheCocktail
 - Browse by category (Cocktail, Shot, Punch, Liqueur)
 - Ingredient list with measures
 - Step-by-step instructions
-- Press `/` to focus the search bar
 
 ## Tech Stack
 - **Express.js** — web server & routing
