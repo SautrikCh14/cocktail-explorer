@@ -47,7 +47,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// ─── SEARCH ROUTE ────────────────────────────────────────────────────────────
+// ─── SEARCH ROUTE ──────
 // Searches cocktails by name and shows the first result
 app.get("/search", async (req, res) => {
   const query = req.query.q?.trim();
